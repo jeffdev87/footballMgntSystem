@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5"> 
+
+  <display-name>Futebol</display-name>
+  <description>
+	  Application description
+  </description>
+
+  <servlet>
+    <servlet-name>ClassificacaoServlet</servlet-name>
+    <servlet-class>org.usp.futebol.ClassificacaoServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ClassificacaoServlet</servlet-name>
+    <url-pattern>/ClassificacaoServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CampeonatoServlet</servlet-name>
+    <servlet-class>org.usp.futebol.CampeonatoServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CampeonatoServlet</servlet-name>
+    <url-pattern>/CampeonatoServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PartidaServlet</servlet-name>
+    <servlet-class>org.usp.futebol.PartidaServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PartidaServlet</servlet-name>
+    <url-pattern>/PartidaServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+  	<servlet-name>ClubeServlet</servlet-name>
+  	<servlet-class>org.usp.futebol.ClubeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ClubeServlet</servlet-name>
+  	<url-pattern>/ClubeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>EquipeServlet</servlet-name>
+  	<servlet-class>org.usp.futebol.EquipeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>EquipeServlet</servlet-name>
+  	<url-pattern>/EquipeServlet</url-pattern>
+  </servlet-mapping>
+    
+</web-app>

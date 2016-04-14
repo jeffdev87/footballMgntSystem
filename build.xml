@@ -1,0 +1,84 @@
+<project name="Futebol" basedir="." default="deploy-local">
+
+    <property name="jspdir" value="jsp"/>
+    <property name="libdir" value="lib"/>
+    <property name="jchdir" value="jcharts"/>
+    <property name="srcdir" value="src"/>
+    <property name="dstdir" value="build"/>
+    <property name="docdir" value="build/docs"/>
+    <property name="cladir" value="build/classes"/>
+    <property name="tomcat" value="/home/william/apache-tomcat-9.0.0.M4"/>
+    <!--<property name="tomcat" value="/media/Dados/William/apache-tomcat-6.0.20-linux"/>-->
+    <property name="wardir" value="war"/>
+    <property name="warfile" value="sistema.war"/>
+
+    <path id="classpath">
+	<pathelement location="build/classes"/>
+	<fileset dir="${libdir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="create">
+	    <mkdir dir="${srcdir}"/>
+	    <mkdir dir="${dstdir}"/>
+	    <mkdir dir="${cladir}"/>
+	    <mkdir dir="${jspdir}"/>
+    	 <mkdir dir="${tomcat}/webapps/${jchdir}"/>
+	    <mkdir dir="${libdir}"/>
+	    <mkdir dir="${wardir}"/>
+	    <mkdir dir="${wardir}/WEB-INF"/>
+	    <mkdir dir="${wardir}/WEB-INF/classes"/>
+	    <mkdir dir="${wardir}/WEB-INF/lib"/>
+    </target>
+
+    <target name="compile" depends="create">
+	<javac srcdir="${srcdir}" destdir="${cladir}" debug="true" includes="**/*.java">
+		<classpath refid="classpath"/>
+	</javac>
+    </target>
+
+    <target name="clean">
+        <delete dir="build"/>
+	<delete file="${warfile}"/>
+	<delete dir="${wardir}"/>
+    </target>
+
+    <target name="docs" depends="create"> 
+	  <javadoc packagenames="org.usp.futebol.*" sourcepath="src" 
+		  destdir="${docdir}" author="true" version="true"
+		  use="true" windowtitle="Futebol-0.0.1">
+	  </javadoc>
+    </target>
+
+    <target name="war" depends="compile">
+	<copy todir="${wardir}/WEB-INF">
+		<fileset dir="${basedir}" includes="web.xml" /> 
+	</copy>
+
+	<copy todir="${cladir}">
+		<fileset dir="${srcdir}" includes="**/*.properties" /> 
+	</copy>
+
+	<copy todir="${wardir}">
+		<fileset dir="${jspdir}" includes="**/*.*" /> 
+	</copy>
+
+	<copy todir="${wardir}/WEB-INF/lib">
+		<fileset dir="${libdir}" includes="**/*.*" /> 
+	</copy>
+
+	<delete file="${wardir}/WEB-INF/lib/servlet-api.jar"/>
+	<delete file="${wardir}/WEB-INF/lib/standard.jar"/>
+	<delete file="${wardir}/WEB-INF/lib/jstl.jar"/>
+
+	<copy todir="${wardir}/WEB-INF/classes">
+		<fileset dir="${cladir}" includes="**/*.*" /> 
+	</copy>
+
+	<jar jarfile="${warfile}" basedir="${wardir}" />
+    </target>
+
+     <target name="deploy-local" depends="war">  
+         <echo>Fazendo o deploy no tomcat ...</echo>  
+         <copy file="${warfile}" todir="${tomcat}/webapps" />  
+     </target>  
+</project>
